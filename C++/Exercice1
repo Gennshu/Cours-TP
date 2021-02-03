@@ -36,7 +36,7 @@ int main()
 
     conteneur_1.affiche();
 
-    Conteneur conteneur_2 = {4,"bonjour"};
+    Conteneur conteneur_2 = {4,"Salut"};
     conteneur_2.affiche();
 
     Conteneur tableau[]={ {18,"poisson"},
