@@ -1,0 +1,48 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+using std::cout;
+using std::endl;
+
+void affiche(std::vector<std::string> const& pV)
+{
+    for(const auto& value : pV)
+    {
+        cout<<value;
+    }
+    cout<<endl;
+}
+
+void concatene(std::vector<std::string> const& pV, std::string& pString)
+{
+    pString = "";
+    for(const auto& value : pV)
+    {
+        pString += value;
+    }
+}
+
+void ajoute_virgule(std::vector<std::string>& pV)
+{
+    for(auto& value : pV)
+    {
+        value += ",";
+    }
+}
+
+int main()
+{
+    std::vector<std::string> V = {"Bonjour", "comment", "allez", "vous", "?"};
+
+    affiche(V);
+
+    std::string S = "Ceci est un test";
+    concatene(V,S);
+    std::cout<<S<<endl;
+
+    ajoute_virgule(V);
+    affiche(V);
+
+    return 0;
+}
