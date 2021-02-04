@@ -1,0 +1,77 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+using std::cout;
+using std::endl;
+
+int main()
+{
+    std::vector<std::string> V = {"Bonjour", "comment", "allez", "vous", "?"};
+   
+    cout<<V.size()<<std::endl;
+    cout<<V.capacity()<<std::endl;
+
+    V.push_back("?");
+
+    cout<<V.size()<<std::endl;
+    cout<<V.capacity()<<std::endl;
+
+    for(int i=0;i<(int)V.size();++i)
+    {
+        cout<<V[i]<<" ";
+    }
+    cout<<endl;
+
+    for(auto it=V.begin(),it_end=V.end();it!=it_end;++it)
+    {
+        cout<<*it<<" ";
+    }
+    cout<<endl;
+
+    for(auto value : V)
+    {
+        cout<<value<<" ";
+    }
+    cout<<endl;
+
+    std::swap(V[1],V[3]);
+
+    for(auto value : V)
+    {
+        cout<<value<<" ";
+    }
+    cout<<endl;
+
+    V.insert(V.begin()+1,"a tous");
+
+    for(auto value : V)
+    {
+        cout<<value<<" ";
+    }
+    cout<<endl;
+
+    V.back()="???";
+
+    for(auto value : V)
+    {
+        cout<<value<<" ";
+    }
+    cout<<endl;
+
+    for(auto value : V)
+    {
+        cout<<value<<",";
+    }
+    cout<<endl;
+
+    std::sort(V.begin(),V.end());
+
+    for(auto value : V)
+    {
+        cout<<value<<" ";
+    }
+    cout<<endl;
+
+    return 0;
+}
