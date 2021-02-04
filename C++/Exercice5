@@ -13,13 +13,14 @@ void affiche(std::vector<std::string> const& pV)
     cout<<endl;
 }
 
-void concatene(std::vector<std::string> const& pV, std::string& pString)
+std::string concatene(std::vector<std::string> const& pV)
 {
-    pString = "";
+    std::string ret = "";
     for(const auto& value : pV)
     {
-        pString += value;
+        ret += value;
     }
+    return ret;
 }
 
 void ajoute_virgule(std::vector<std::string>& pV)
@@ -36,9 +37,8 @@ int main()
 
     affiche(V);
 
-    std::string S = "Ceci est un test";
-    concatene(V,S);
-    std::cout<<S<<endl;
+    std::string VConcatene = concatene(V);
+    cout<<VConcatene<<endl;
 
     ajoute_virgule(V);
     affiche(V);
