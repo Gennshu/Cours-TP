@@ -1,0 +1,50 @@
+#include <iostream>
+#include <map>
+#include <list>
+
+using std::cout;
+using std::endl;
+
+void ajoute_evenement(std::map<int,std::list<std::string>>& M, int i, std::string s)
+{
+    if(M.count(i) != 0)
+    {
+        M[i].push_back(s);
+    }
+    else
+    {
+        M[i] = std::list<std::string> {s};
+    }
+}
+
+void affichage(std::map<int,std::list<std::string>> M)
+{
+    for (auto itM=M.begin(); itM!=M.end(); ++itM)
+    {
+        for (auto itL=M[itM->first].begin(); itL!=M[itM->first].end(); ++itL)
+        {
+            cout<<". "<<itM->first<<", "<<*itL<<endl;
+        }
+    }
+}
+
+int main()
+{
+    std::map<int,std::list<std::string>> M;
+
+    ajoute_evenement(M,1994,"Création de CPE");
+    ajoute_evenement(M,1953,"Naissance de Richard");
+    ajoute_evenement(M,1953,"Sortie de Peter Pan de Walt Disney");
+    ajoute_evenement(M,1994,"Mort d’Ayrton Senna");
+    ajoute_evenement(M,1953,"Naissance de Dorothé");
+    ajoute_evenement(M,1515,"Bataille de Marignan");
+    ajoute_evenement(M,1953,"Naissance de José Bové");
+    ajoute_evenement(M,1983,"Inauguration tour Eiffel");
+    ajoute_evenement(M,1953,"Naissance de Ségolène Royal");
+    ajoute_evenement(M,1983,"Naissance de Edwin Hubble");
+    ajoute_evenement(M,1953,"Naissance de John Malkovich");
+
+    affichage(M);
+
+    return 0;
+}
