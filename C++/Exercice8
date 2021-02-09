@@ -1,0 +1,99 @@
+#include <iostream>
+#include <fstream>
+#include <vector>
+
+using std::cout;
+using std::endl;
+
+struct color
+{
+    //couleur r,g,b
+    int r,g,b;
+
+    //constructeurs
+    color()
+        :r(0),g(0),b(0)
+    {
+
+    }
+
+    color(int r_arg,int g_arg,int b_arg)
+        :r(r_arg),g(g_arg),b(b_arg)
+    {
+
+    }
+};
+
+struct image
+{
+    //taille
+    int Nx,Ny;
+
+    //donnees
+    std::vector<color> data;
+
+    void assert_coord(int x,int y) const
+    {
+        if(x<0 || x>=Nx || y<0 || y>=Ny)
+        {
+            std::cerr<<"Index "<<x<<","<<y<<" hors bornes."<<std::endl;
+            exit(1);
+        }
+    }
+
+    color const& operator()(int x,int y) const
+    {
+        assert_coord(x,y);
+        return data[y+Ny*x];
+    }
+
+    color& operator()(int x,int y)
+    {
+        assert_coord(x,y);
+        return data[y+Ny*x];
+    }
+
+    void resize(int pNx, int pNy)
+    {
+        Nx = pNx;
+        Ny = pNy;
+        data.resize(Nx*Ny);
+    }
+};
+
+std::ostream& operator<<(std::ostream& stream,const color& c)
+{
+stream<<c.r<<" "<<c.g<<" "<<c.b;
+return stream;
+}
+
+void save_image(std::string nomFichier, image imageASave)
+{
+    std::ofstream ofs(nomFichier);
+    if (ofs.good())
+    {   
+        ofs<<"P3"<<endl<<imageASave.Ny<<' '<<imageASave.Nx<<endl<<255<<endl;
+        std::vector<color> dataAEcrire = imageASave.data;
+        for (auto it=dataAEcrire.begin(); it!=dataAEcrire.end();++it)
+        {
+            ofs<<*it<<endl;
+        }
+    }
+}
+
+int main()
+{
+    image im;
+    im.resize(10,30);
+    for (int i=0;i<10;++i)
+    {
+        for (int j=0;j<30;++j)
+        {
+            im(i,j)= color((30-j)*255/30,0,j*255/30);
+        }
+    }
+
+    save_image("im.ppm",im);
+
+    return 0;
+}
