@@ -1,0 +1,63 @@
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include "color.hpp"
+#include "image.hpp"
+
+using std::cout;
+using std::endl;
+
+void save_image(std::string nomFichier, image imageASave)
+{
+    std::ofstream ofs(nomFichier);
+    if (ofs.good())
+    {   
+        ofs<<"P3"<<endl<<imageASave.Ny<<' '<<imageASave.Nx<<endl<<255<<endl;
+        std::vector<color> dataAEcrire = imageASave.data;
+        for (auto it=dataAEcrire.begin(); it!=dataAEcrire.end();++it)
+        {
+            ofs<<*it<<endl;
+        }
+    }
+}
+
+int main()
+{
+    image im;
+    int r = 50;
+    int rcentre = 35;
+    int r2 = 25;
+    int r2centre = 15;
+    im.resize(200,500);
+    for (int i=0;i<im.Nx;++i)
+    {
+        for (int j=0;j<im.Ny;++j)
+        {
+            im(i,j)= color((im.Ny-j)*255/im.Ny,0,j*255/im.Ny);
+            if ((i-100)*(i-100)+(j-400)*(j-400)<r*r && (i-100)*(i-100)+(j-400)*(j-400)>rcentre*rcentre)
+            {
+                im(i,j)= color(j*255/im.Ny,0,(im.Ny-j)*255/im.Ny);
+            }
+            if ((i-100)*(i-100)+(j-100)*(j-100)<r*r && (i-100)*(i-100)+(j-100)*(j-100)>rcentre*rcentre && j<100)
+            {
+                im(i,j)= color(j*255/im.Ny,0,(im.Ny-j)*255/im.Ny);
+            }
+            if ((i-75)*(i-75)+(j-250)*(j-250)<r2*r2 && (i-75)*(i-75)+(j-250)*(j-250)>r2centre*r2centre && j>250)
+            {
+                im(i,j)= color(255,255,255);
+            }
+            if ((i-125)*(i-125)+(j-250)*(j-250)<r2*r2 && (i-125)*(i-125)+(j-250)*(j-250)>r2centre*r2centre && j>250)
+            {
+                im(i,j)= color(255,255,255);
+            }
+            if (i > 50 && i< 150 && j <=250 && j > 240)
+            {
+                im(i,j)= color(255,255,255);
+            }
+        }
+    }
+
+    save_image("im.ppm",im);
+
+    return 0;
+}
